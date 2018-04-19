@@ -10,7 +10,7 @@ public interface BlockChain {
 
   List<byte[]> getBlockChain();
 
-  TransactionConfirmation addTransaction(String payload);
+  Transaction addTransaction(String payload);
 
-  TransactionConfirmation getTransaction(String id);
+  Transaction getTransaction(String id);
 }

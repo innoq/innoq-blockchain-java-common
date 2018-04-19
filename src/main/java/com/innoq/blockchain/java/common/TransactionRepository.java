@@ -8,32 +8,33 @@ import java.util.stream.Stream;
 
 public class TransactionRepository {
 
-	private final Map<String, TransactionConfirmation> transactions;
-	
-	private final Deque<String> worklog;
-	
-	public TransactionRepository() {
-		transactions = new HashMap<>();
-		worklog = new ArrayDeque<>();
-	}
-	public void saveTransaction(TransactionConfirmation tc) {
-		transactions.put(tc.transaction.id, tc);
-	}
-	
-	public TransactionConfirmation getTransactionConfirmation(String id) {
-		return transactions.get(id);
-	}
-	
-	public void addToWorklog(TransactionConfirmation tc) {
-		worklog.addLast(tc.transaction.id);
-	}
-	
-	public void removeFromWorklog(TransactionConfirmation tc) {
-		tc.confirmed = true;
-		worklog.remove(tc.transaction.id);
-	}
-	
-	public Stream<TransactionConfirmation> getWorklog() {
-		return worklog.stream().map(transactions::get);
-	}
+  private final Map<String, Transaction> transactions;
+
+  private final Deque<String> worklog;
+
+  public TransactionRepository() {
+    transactions = new HashMap<>();
+    worklog = new ArrayDeque<>();
+  }
+
+  public void saveTransaction(Transaction tc) {
+    transactions.put(tc.id, tc);
+  }
+
+  public Transaction getTransactionConfirmation(String id) {
+    return transactions.get(id);
+  }
+
+  public void addToWorklog(Transaction tc) {
+    worklog.addLast(tc.id);
+  }
+
+  public void removeFromWorklog(Transaction tc) {
+    tc.confirmed = true;
+    worklog.remove(tc.id);
+  }
+
+  public Stream<Transaction> getWorklog() {
+    return worklog.stream().map(transactions::get);
+  }
 }
