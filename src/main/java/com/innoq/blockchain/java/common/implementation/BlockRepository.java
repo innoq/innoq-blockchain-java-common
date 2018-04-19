@@ -1,4 +1,6 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
+
+import com.innoq.blockchain.java.common.Block;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.stream.Stream;
  *
  * @author thorstenk
  */
-public class BlockRepository {
+class BlockRepository {
 
   private final List<Block> blocks;
 

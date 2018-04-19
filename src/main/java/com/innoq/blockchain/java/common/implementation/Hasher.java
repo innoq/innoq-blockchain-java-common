@@ -1,10 +1,12 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
+
+import com.innoq.blockchain.java.common.Block;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Hasher {
+class Hasher {
 
   static MessageDigest sha256Digest = createDigest();
 

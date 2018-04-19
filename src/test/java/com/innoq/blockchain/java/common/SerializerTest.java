@@ -1,5 +1,8 @@
 package com.innoq.blockchain.java.common;
 
+import com.innoq.blockchain.java.common.implementation.GenesisBlock;
+import com.innoq.blockchain.java.common.implementation.Hasher;
+import com.innoq.blockchain.java.common.implementation.Serializer;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;

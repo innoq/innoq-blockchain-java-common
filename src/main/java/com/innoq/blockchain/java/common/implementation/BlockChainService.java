@@ -1,4 +1,6 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
+
+import com.innoq.blockchain.java.common.*;
 
 import java.time.Instant;
 import java.util.List;

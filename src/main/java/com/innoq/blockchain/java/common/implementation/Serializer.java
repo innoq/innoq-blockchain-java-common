@@ -1,12 +1,13 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.innoq.blockchain.java.common.Block;
 
 import java.io.IOException;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
-public class Serializer {
+class Serializer {
 
   static public byte[] asBytes(Block block) {
     try {

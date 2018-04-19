@@ -1,7 +1,8 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.innoq.blockchain.java.common.Transaction;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class MiningService {
+class MiningService {
 
   private final String hashPrefix;
 

@@ -1,10 +1,11 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.innoq.blockchain.java.common.Block;
 
 import java.io.IOException;
 
-public class Deserializer {
+class Deserializer {
 
   public static Block asBlock(byte[] block) {
     try {

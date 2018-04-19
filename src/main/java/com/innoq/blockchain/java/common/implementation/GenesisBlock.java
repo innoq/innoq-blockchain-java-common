@@ -1,8 +1,10 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
+
+import com.innoq.blockchain.java.common.Block;
 
 import java.util.Collections;
 
-public class GenesisBlock {
+class GenesisBlock {
 
   public static Block get() {
     Block.Transaction transaction = new Block.Transaction("b3c973e2-db05-4eb5-9668-3e81c7389a6d", 0, "I am Heribert Innoq");

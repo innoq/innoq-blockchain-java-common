@@ -31,7 +31,7 @@ public class Block implements Cloneable {
     }
   }
 
-  static class Transaction implements Cloneable {
+  public static class Transaction implements Cloneable {
 
     public final String id;
     public final long timestamp;

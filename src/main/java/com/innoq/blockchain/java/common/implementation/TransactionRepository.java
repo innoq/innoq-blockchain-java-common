@@ -1,4 +1,6 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
+
+import com.innoq.blockchain.java.common.Transaction;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -6,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class TransactionRepository {
+class TransactionRepository {
 
   private final Map<String, Transaction> transactions;
 
