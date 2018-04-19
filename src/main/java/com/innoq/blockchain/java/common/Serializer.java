@@ -1,22 +1,22 @@
 package com.innoq.blockchain.java.common;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.Optional;
+
+import static java.nio.charset.StandardCharsets.US_ASCII;
 
 public class Serializer {
 
-  static public Optional<byte[]> asBytes(Block block) {
+  static public byte[] asBytes(Block block) {
     try {
-      return Optional.ofNullable(new ObjectMapper().writeValueAsBytes(block));
+      return new ObjectMapper().writeValueAsBytes(block);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new IllegalStateException(e);
     }
-    return Optional.empty();
   }
 
-  static public Optional<String> asString(Block block) {
-    return asBytes(block).map(String::new);
+  static public String asString(Block block) {
+    return new String(asBytes(block), US_ASCII);
   }
 }

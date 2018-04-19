@@ -8,6 +8,10 @@ public class Hasher {
 
   static MessageDigest sha256Digest = createDigest();
 
+  public static String createHash(Block block) {
+    return createHash(Serializer.asBytes(block));
+  }
+
   public static String createHash(byte[] block) {
     return String.format("%064x", new BigInteger(1, sha256Digest.digest(block)));
   }

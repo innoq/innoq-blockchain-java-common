@@ -2,8 +2,15 @@ package com.innoq.blockchain.java.common;
 
 public class Transaction {
 
-  public String id;
-  public String payload;
-  public long timestamp;
-  public boolean confirmed;
+  public final String id;
+  public final String payload;
+  public final long timestamp;
+  public final boolean confirmed;
+
+  public Transaction(String id, String payload, long timestamp, boolean confirmed) {
+    this.id = id;
+    this.payload = payload;
+    this.timestamp = timestamp;
+    this.confirmed = confirmed;
+  }
 }

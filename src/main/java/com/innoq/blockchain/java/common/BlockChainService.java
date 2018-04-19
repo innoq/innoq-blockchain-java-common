@@ -1,11 +1,10 @@
 package com.innoq.blockchain.java.common;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class BlockChainService /*implements BlockChain*/ {
+public class BlockChainService implements BlockChain {
 
   private static final int TRANSACTIONS_WORKLOG_SIZE = 5;
 
@@ -24,27 +23,29 @@ public class BlockChainService /*implements BlockChain*/ {
     this.miner = miner;
   }
 
-  //  @Override
+  @Override
   public NodeStatus getStatus() {
     return new NodeStatus(nodeId, blockRepository.getBlockHeight());
   }
 
-  //  @Override
+  @Override
   public MiningResult mineBlock() throws Exception {
     List<Transaction> transactions = transactionRepository.getWorklog()
         .limit(TRANSACTIONS_WORKLOG_SIZE)
         .collect(Collectors.toList());
-    MiningResult result = miner.mine(blockRepository.getBlockHeight() + 1,
+    MiningService.MiningResult result = miner.mine(
+        blockRepository.getBlockHeight() + 1,
         transactions,
-        blockRepository.getLastBlock());
-    blockRepository.persist(result.block);
+        Hasher.createHash(blockRepository.getLastBlock()));
+    Block block = Deserializer.asBlock(result.block);
+    blockRepository.persist(block);
     transactions.forEach(transactionRepository::removeFromWorklog);
 
-    return result;
+    return new MiningResult(result.duration, result.hashesPerSecond, block);
   }
-
+/*
   //  @Override
-  public List<byte[]> getBlockChain() {
+  public BlockList getBlockChain() {
     return blockRepository.getBlocks().collect(Collectors.toList());
   }
 
@@ -62,4 +63,5 @@ public class BlockChainService /*implements BlockChain*/ {
   public Transaction getTransaction(String id) {
     return transactionRepository.getTransactionConfirmation(id);
   }
+  */
 }

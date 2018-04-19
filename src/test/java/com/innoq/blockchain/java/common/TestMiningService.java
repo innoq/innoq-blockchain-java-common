@@ -22,14 +22,14 @@ public class TestMiningService {
 	
 	@Test
 	public void testMinedPrefixHash() throws Exception {
-		MiningResult result = miningService.mine(1, Collections.emptyList(), new byte[0]);
+		MiningService.MiningResult result = miningService.mine(1, Collections.emptyList(), new byte[0]);
 		assertThat(result.block).isNotNull();
 		assertThat(miningService.hash(result.block)).startsWith(prefix);
 	}
 	
 	@Test
 	public void testBlock() throws Exception {
-		MiningResult result = miningService.mine(1, Collections.emptyList(), new byte[0]);
+		MiningService.MiningResult result = miningService.mine(1, Collections.emptyList(), new byte[0]);
 		MiningService.Block block = new ObjectMapper().readValue(result.block, MiningService.Block.class);
 		assertThat(block.index).isEqualTo(1);
 		assertThat(block.previousBlockHash).isEqualTo(miningService.hash(new byte[0]));

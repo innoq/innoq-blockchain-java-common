@@ -20,7 +20,7 @@ public class MiningService {
 
   private final ObjectMapper objectMapper;
 
-  public MiningService(String hashPrefix)  {
+  public MiningService(String hashPrefix) {
     this.hashPrefix = hashPrefix;
     try {
       digest = MessageDigest.getInstance("SHA-256");
@@ -30,16 +30,15 @@ public class MiningService {
     objectMapper = new ObjectMapper();
   }
 
-  public MiningResult mine(int newBlockIndex, List<com.innoq.blockchain.java.common.Transaction> transactions, byte[] lastBlock) throws Exception {
+  public MiningResult mine(int newBlockIndex, List<Transaction> transactions, String previousBlockHash) throws Exception {
     Instant miningStart = Instant.now();
 
     int proofCounter = -1;
     String hash = null;
-    final String lastBlockHash = hash(lastBlock);
     byte[] block = null;
     do {
       proofCounter++;
-      block = createBlock(newBlockIndex, miningStart, proofCounter, transactions, lastBlockHash);
+      block = createBlock(newBlockIndex, miningStart, proofCounter, transactions, previousBlockHash);
       hash = hash(block);
     } while (!hash.startsWith(hashPrefix));
 
@@ -87,4 +86,18 @@ public class MiningService {
     }
   }
 
+  public static class MiningResult {
+
+    public final Duration duration;
+
+    public final double hashesPerSecond;
+
+    public final byte[] block;
+
+    public MiningResult(final Duration duration, final double hashesPerSecond, final byte[] block) {
+      this.duration = duration;
+      this.hashesPerSecond = hashesPerSecond;
+      this.block = block;
+    }
+  }
 }

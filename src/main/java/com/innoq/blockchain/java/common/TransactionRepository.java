@@ -30,7 +30,7 @@ public class TransactionRepository {
   }
 
   public void removeFromWorklog(Transaction tc) {
-    tc.confirmed = true;
+//    tc.confirmed = true;
     worklog.remove(tc.id);
   }
 
