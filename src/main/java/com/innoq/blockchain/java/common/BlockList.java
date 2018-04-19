@@ -19,7 +19,7 @@ public class BlockList implements Iterable<Block> {
   }
 
   public long getBlockHeight() {
-    return hashCode();
+    return blocks.size();
   }
 
   public List<Block> getBlocks() {

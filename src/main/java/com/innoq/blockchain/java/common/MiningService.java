@@ -66,6 +66,7 @@ public class MiningService {
   }
 
   public String hash(byte[] block) {
+    digest.reset();
     return String.format("%064x", new BigInteger(1, digest.digest(block)));
   }
 

@@ -16,7 +16,7 @@ public class TestBlockService {
     status = service.getStatus();
     assertThat(status.currentBlockHeight).isEqualTo(2);
 
-    assertThat(service.getBlockChain().size()).isEqualTo(2);
+    assertThat(service.getBlockChain().getBlockHeight()).isEqualTo(2);
   }
 
   @Test

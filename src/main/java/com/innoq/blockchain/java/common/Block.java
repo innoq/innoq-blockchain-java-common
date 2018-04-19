@@ -7,11 +7,13 @@ import static java.util.stream.Collectors.toList;
 
 public class Block implements Cloneable {
 
-  public final long index;
-  public final long timestamp;
-  public final long proof;
-  public final List<Transaction> transactions;
-  public final String previousBlockHash;
+  public long index;
+  public long timestamp;
+  public long proof;
+  public List<Transaction> transactions;
+  public String previousBlockHash;
+
+  public Block() {}
 
   public Block(long index, long timestamp, long proof, Collection<Transaction> transactions, String previousBlockHash) {
     this.index = index;

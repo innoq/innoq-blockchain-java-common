@@ -1,5 +1,6 @@
 package com.innoq.blockchain.java.common;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,25 +44,24 @@ public class BlockChainService implements BlockChain {
 
     return new MiningResult(result.duration, result.hashesPerSecond, block);
   }
-/*
-  //  @Override
+
+  @Override
   public BlockList getBlockChain() {
-    return blockRepository.getBlocks().collect(Collectors.toList());
+    return new BlockList(blockRepository.getBlocks().collect(Collectors.toList()));
   }
 
   //  @Override
   public Transaction addTransaction(Payload payload) {
-    Transaction transaction = new Transaction();
-    transaction.id = UUID.randomUUID().toString();
-    transaction.payload = payload.payload;
-    transaction.timestamp = Instant.now().toEpochMilli();
-    transaction.confirmed = false;
-    return transaction;
+    return new Transaction(
+        UUID.randomUUID().toString(),
+        payload.payload,
+        Instant.now().toEpochMilli(),
+        false
+    );
   }
 
-  //  @Override
+  @Override
   public Transaction getTransaction(String id) {
     return transactionRepository.getTransactionConfirmation(id);
   }
-  */
 }

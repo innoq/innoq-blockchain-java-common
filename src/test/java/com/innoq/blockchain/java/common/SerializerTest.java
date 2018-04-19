@@ -3,7 +3,6 @@ package com.innoq.blockchain.java.common;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,10 +15,10 @@ public class SerializerTest {
     Block genesisBlock = GenesisBlock.get();
 
     //when
-    Optional<byte[]> serialized = Serializer.asBytes(genesisBlock);
+    byte[] serialized = Serializer.asBytes(genesisBlock);
 
     //then
-    assertThat(serialized.isPresent());
+    assertThat(serialized).isNotNull();
   }
 
 
@@ -27,10 +26,10 @@ public class SerializerTest {
   public void sha256Hash_of_genesisBlock_starts_with_six_zeros() throws NoSuchAlgorithmException {
     //given
     Block genesisBlock = GenesisBlock.get();
-    Optional<byte[]> serialized = Serializer.asBytes(genesisBlock);
+    byte[] serialized = Serializer.asBytes(genesisBlock);
 
     //when
-    String hash = Hasher.createHash(serialized.get());
+    String hash = Hasher.createHash(serialized);
 
     //then
     assertThat(hash).startsWith("000000");
