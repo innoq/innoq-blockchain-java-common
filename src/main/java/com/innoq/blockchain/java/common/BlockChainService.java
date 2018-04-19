@@ -49,10 +49,10 @@ public class BlockChainService /*implements BlockChain*/ {
   }
 
   //  @Override
-  public Transaction addTransaction(String payload) {
+  public Transaction addTransaction(Payload payload) {
     Transaction transaction = new Transaction();
     transaction.id = UUID.randomUUID().toString();
-    transaction.payload = payload;
+    transaction.payload = payload.payload;
     transaction.timestamp = Instant.now().toEpochMilli();
     transaction.confirmed = false;
     return transaction;

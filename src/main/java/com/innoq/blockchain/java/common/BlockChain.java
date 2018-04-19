@@ -10,7 +10,7 @@ public interface BlockChain {
 
   BlockList getBlockChain();
 
-  Transaction addTransaction(String payload);
+  Transaction addTransaction(Payload payload);
 
   Transaction getTransaction(String id);
 }

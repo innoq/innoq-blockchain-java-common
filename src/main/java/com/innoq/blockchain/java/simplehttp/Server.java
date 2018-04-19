@@ -1,10 +1,7 @@
 package com.innoq.blockchain.java.simplehttp;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innoq.blockchain.java.common.BlockChain;
-import com.innoq.blockchain.java.common.BlockChainService;
-import com.innoq.blockchain.java.common.MiningService;
+import com.innoq.blockchain.java.common.*;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -36,18 +33,21 @@ public class Server {
         MiningService miner = new MiningService("000");
         BlockChain bc = new BlockChainService(miner);
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+
         server.createContext("/", new HttpHandler() {
             @Override
             public void handle(HttpExchange exc) throws IOException {
                 writeObjectAsJson(exc, bc.getStatus());
             }
         });
+
         server.createContext("/blocks", new HttpHandler() {
             @Override
             public void handle(HttpExchange exc) throws IOException {
                 writeObjectAsJson(exc, bc.getBlockChain());
             }
         });
+
         server.createContext("/mine", new HttpHandler() {
             @Override
             public void handle(HttpExchange exc) throws IOException {
@@ -56,6 +56,16 @@ public class Server {
                 } catch (Exception e) {
                     e.printStackTrace();
                     writeError(exc, e.getMessage());
+                }
+            }
+        });
+
+        server.createContext("/transactions", new HttpHandler() {
+            @Override
+            public void handle(HttpExchange exc) throws IOException {
+                if (exc.getRequestMethod().equalsIgnoreCase("POST")) {
+                    Payload p = om.readValue(exc.getRequestBody(), Payload.class);
+                    bc.addTransaction(p);
                 }
             }
         });
