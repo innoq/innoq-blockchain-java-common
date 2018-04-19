@@ -42,7 +42,7 @@ public class BlockChainService implements BlockChain {
         Hasher.createHash(blockRepository.getLastBlock()));
     Block block = Deserializer.asBlock(result.block);
     blockRepository.persist(block);
-    transactions.forEach(transactionRepository::removeFromWorklog);
+    transactions.stream().map(Transaction::confirm).forEach(transactionRepository::removeFromWorklog);
 
     return new MiningResult(result.duration, result.hashesPerSecond, block);
   }

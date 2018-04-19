@@ -32,8 +32,8 @@ class TransactionRepository {
   }
 
   public void removeFromWorklog(Transaction tc) {
-//    tc.confirmed = true;
     worklog.remove(tc.id);
+    saveTransaction(tc);
   }
 
   public Stream<Transaction> getWorklog() {

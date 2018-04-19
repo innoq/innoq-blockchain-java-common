@@ -1,8 +1,6 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.implementation;
 
-import com.innoq.blockchain.java.common.implementation.GenesisBlock;
-import com.innoq.blockchain.java.common.implementation.Hasher;
-import com.innoq.blockchain.java.common.implementation.Serializer;
+import com.innoq.blockchain.java.common.Block;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SerializerTest {
-
 
   @Test
   public void genesisBlock_can_be_serialized() {

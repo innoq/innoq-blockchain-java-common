@@ -13,4 +13,8 @@ public class Transaction {
     this.timestamp = timestamp;
     this.confirmed = confirmed;
   }
+
+  public Transaction confirm() {
+    return new Transaction(id, payload, timestamp, true);
+  }
 }

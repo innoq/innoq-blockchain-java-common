@@ -1,8 +1,6 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.innoq.blockchain.java.common.NodeStatus;
-import com.innoq.blockchain.java.common.implementation.BlockChainService;
-import com.innoq.blockchain.java.common.implementation.MiningService;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

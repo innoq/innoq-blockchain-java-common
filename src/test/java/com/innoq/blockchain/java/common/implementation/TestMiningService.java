@@ -1,7 +1,6 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innoq.blockchain.java.common.implementation.MiningService;
 import org.junit.Before;
 import org.junit.Test;
 
