@@ -1,13 +1,14 @@
 package com.innoq.blockchain.java.simplehttp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innoq.blockchain.java.common.*;
 import com.innoq.blockchain.java.common.implementation.BlockChainService;
 import com.innoq.blockchain.java.common.implementation.MiningService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import com.innoq.blockchain.java.common.BlockChain;
+import com.innoq.blockchain.java.common.Payload;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;

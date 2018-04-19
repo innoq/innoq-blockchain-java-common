@@ -48,7 +48,7 @@ public class MiningService {
     return new MiningResult(duration, hashesPerSecond, block);
   }
 
-  private byte[] createBlock(int index, Instant timestamp, int proof, List<com.innoq.blockchain.java.common.Transaction> transactions, String previousBlockHash) throws JsonProcessingException {
+  private byte[] createBlock(int index, Instant timestamp, int proof, List<Transaction> transactions, String previousBlockHash) throws JsonProcessingException {
     Block block = new Block();
     block.index = index;
     block.timestamp = timestamp.toEpochMilli();
