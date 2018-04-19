@@ -1,6 +1,7 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.innoq.blockchain.java.common.implementation.MiningService.MiningResult;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,14 +22,14 @@ public class TestMiningService {
 
   @Test
   public void testMinedPrefixHash() throws Exception {
-    MiningService.MiningResult result = miningService.mine(1, Collections.emptyList(), "");
+    MiningResult result = miningService.mine(1, Collections.emptyList(), "");
     assertThat(result.block).isNotNull();
     assertThat(miningService.hash(result.block)).startsWith(prefix);
   }
 
   @Test
   public void testBlock() throws Exception {
-    MiningService.MiningResult result = miningService.mine(1, Collections.emptyList(), "previous block hash");
+    MiningResult result = miningService.mine(1, Collections.emptyList(), "previous block hash");
     MiningService.Block block = new ObjectMapper().readValue(result.block, MiningService.Block.class);
     assertThat(block.index).isEqualTo(1);
     assertThat(block.previousBlockHash).isEqualTo("previous block hash");

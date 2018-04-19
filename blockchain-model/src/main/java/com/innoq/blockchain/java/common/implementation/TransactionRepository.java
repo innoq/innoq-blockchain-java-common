@@ -19,16 +19,13 @@ class TransactionRepository {
     worklog = new ArrayDeque<>();
   }
 
-  public void saveTransaction(Transaction tc) {
-    transactions.put(tc.id, tc);
-  }
-
-  public Transaction getTransactionConfirmation(String id) {
+  public Transaction getTransaction(String id) {
     return transactions.get(id);
   }
 
   public void addToWorklog(Transaction tc) {
     worklog.addLast(tc.id);
+    saveTransaction(tc);
   }
 
   public void removeFromWorklog(Transaction tc) {
@@ -38,5 +35,9 @@ class TransactionRepository {
 
   public Stream<Transaction> getWorklog() {
     return worklog.stream().map(transactions::get);
+  }
+
+  private void saveTransaction(Transaction tc) {
+    transactions.put(tc.id, tc);
   }
 }

@@ -33,9 +33,11 @@ public class Block implements Cloneable {
 
   public static class Transaction implements Cloneable {
 
-    public final String id;
-    public final long timestamp;
-    public final String payload;
+    public String id;
+    public long timestamp;
+    public String payload;
+
+    public Transaction() {}
 
     public Transaction(String id, long timestamp, String payload) {
       this.id = id;

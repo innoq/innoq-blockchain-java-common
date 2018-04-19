@@ -7,7 +7,11 @@ public class Transaction {
   public final long timestamp;
   public final boolean confirmed;
 
-  public Transaction(String id, String payload, long timestamp, boolean confirmed) {
+  public Transaction(String id, String payload, long timestamp) {
+    this(id, payload, timestamp, false);
+  }
+
+  private Transaction(String id, String payload, long timestamp, boolean confirmed) {
     this.id = id;
     this.payload = payload;
     this.timestamp = timestamp;

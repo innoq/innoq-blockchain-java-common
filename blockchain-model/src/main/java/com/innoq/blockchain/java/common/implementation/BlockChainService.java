@@ -52,18 +52,18 @@ public class BlockChainService implements BlockChain {
     return new BlockList(blockRepository.getBlocks().collect(Collectors.toList()));
   }
 
-  //  @Override
+  @Override
   public Transaction addTransaction(Payload payload) {
-    return new Transaction(
+    Transaction transaction = new Transaction(
         UUID.randomUUID().toString(),
         payload.payload,
-        Instant.now().toEpochMilli(),
-        false
-    );
+        Instant.now().toEpochMilli());
+    transactionRepository.addToWorklog(transaction);
+    return transaction;
   }
 
   @Override
   public Transaction getTransaction(String id) {
-    return transactionRepository.getTransactionConfirmation(id);
+    return transactionRepository.getTransaction(id);
   }
 }
