@@ -49,7 +49,7 @@ public class MiningService {
     block.timestamp = timestamp.toEpochMilli();
     block.proof = proof;
     block.transactions = transactions.stream().map(tc -> {
-      Transaction transaction = new Transaction();
+      Block.Transaction transaction = new Block.Transaction();
       transaction.id = tc.id;
       transaction.payload = tc.payload;
       transaction.timestamp = tc.timestamp;
@@ -73,12 +73,13 @@ public class MiningService {
     public int proof;
     public List<Transaction> transactions;
     public String previousBlockHash;
+
+    static class Transaction {
+
+      public String id;
+      public long timestamp;
+      public String payload;
+    }
   }
 
-  static class Transaction {
-
-    public String id;
-    public long timestamp;
-    public String payload;
-  }
 }

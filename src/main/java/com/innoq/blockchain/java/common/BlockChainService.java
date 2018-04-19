@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class BlockChainService implements BlockChain {
+public class BlockChainService /*implements BlockChain*/ {
 
   private static final int TRANSACTIONS_WORKLOG_SIZE = 5;
 
@@ -24,12 +24,12 @@ public class BlockChainService implements BlockChain {
     this.miner = miner;
   }
 
-  @Override
+  //  @Override
   public NodeStatus getStatus() {
     return new NodeStatus(nodeId, blockRepository.getBlockHeight());
   }
 
-  @Override
+  //  @Override
   public MiningResult mineBlock() throws Exception {
     List<Transaction> transactions = transactionRepository.getWorklog()
         .limit(TRANSACTIONS_WORKLOG_SIZE)
@@ -43,12 +43,12 @@ public class BlockChainService implements BlockChain {
     return result;
   }
 
-  @Override
+  //  @Override
   public List<byte[]> getBlockChain() {
     return blockRepository.getBlocks().collect(Collectors.toList());
   }
 
-  @Override
+  //  @Override
   public Transaction addTransaction(String payload) {
     Transaction transaction = new Transaction();
     transaction.id = UUID.randomUUID().toString();
@@ -58,7 +58,7 @@ public class BlockChainService implements BlockChain {
     return transaction;
   }
 
-  @Override
+  //  @Override
   public Transaction getTransaction(String id) {
     return transactionRepository.getTransactionConfirmation(id);
   }

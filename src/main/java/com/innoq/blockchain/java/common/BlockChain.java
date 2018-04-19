@@ -8,7 +8,7 @@ public interface BlockChain {
 
   MiningResult mineBlock() throws Exception;
 
-  List<byte[]> getBlockChain();
+  BlockList getBlockChain();
 
   Transaction addTransaction(String payload);
 
