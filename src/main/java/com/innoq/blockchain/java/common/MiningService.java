@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -19,9 +20,13 @@ public class MiningService {
 
   private final ObjectMapper objectMapper;
 
-  public MiningService(String hashPrefix) throws Exception {
+  public MiningService(String hashPrefix)  {
     this.hashPrefix = hashPrefix;
-    digest = MessageDigest.getInstance("SHA-256");
+    try {
+      digest = MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+      throw new IllegalStateException(e);
+    }
     objectMapper = new ObjectMapper();
   }
 
