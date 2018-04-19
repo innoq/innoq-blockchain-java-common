@@ -13,7 +13,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-class MiningService {
+public class MiningService {
 
   private final String hashPrefix;
 
