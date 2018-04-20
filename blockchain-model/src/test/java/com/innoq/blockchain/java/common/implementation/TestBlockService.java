@@ -1,8 +1,6 @@
 package com.innoq.blockchain.java.common.implementation;
 
-import com.innoq.blockchain.java.common.Block;
-import com.innoq.blockchain.java.common.NodeStatus;
-import com.innoq.blockchain.java.common.TransactionData;
+import com.innoq.blockchain.java.common.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,11 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestBlockService {
 
-  private BlockChainService service;
+  private BlockChain service;
 
   @Before
   public void setUp() throws Exception {
-    service = new BlockChainService(new MiningService(new byte[2]));
+    service = new Module(2).blockChain;
   }
 
   @Test

@@ -2,6 +2,7 @@ package com.innoq.blockchain.java.simplehttp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innoq.blockchain.java.common.BlockChain;
+import com.innoq.blockchain.java.common.Module;
 import com.innoq.blockchain.java.common.TransactionData;
 import com.innoq.blockchain.java.common.implementation.BlockChainService;
 import com.innoq.blockchain.java.common.implementation.MiningService;
@@ -34,8 +35,7 @@ public class Server {
 
   public static void main(String[] args) throws Exception {
 
-    MiningService miner = new MiningService(new byte[2]);
-    BlockChain bc = new BlockChainService(miner);
+    BlockChain bc = new Module(2).blockChain;
     HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
     server.createContext("/", new HttpHandler() {
