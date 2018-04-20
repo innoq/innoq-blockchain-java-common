@@ -1,4 +1,4 @@
-package com.innoq.blockchain.java.common.noderegisty;
+package com.innoq.blockchain.java.common.implementation.noderegisty;
 
 import java.util.Objects;
 

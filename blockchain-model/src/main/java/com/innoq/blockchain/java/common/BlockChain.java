@@ -1,6 +1,6 @@
 package com.innoq.blockchain.java.common;
 
-import com.innoq.blockchain.java.common.noderegisty.Node;
+import com.innoq.blockchain.java.common.implementation.noderegisty.Node;
 
 public interface BlockChain {
 
