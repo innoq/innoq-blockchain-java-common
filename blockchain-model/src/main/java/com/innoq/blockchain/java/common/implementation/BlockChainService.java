@@ -1,6 +1,8 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.innoq.blockchain.java.common.*;
+import com.innoq.blockchain.java.common.noderegisty.Node;
+import com.innoq.blockchain.java.common.noderegisty.NodeRegistry;
 
 import java.time.Instant;
 import java.util.List;
@@ -12,24 +14,31 @@ public class BlockChainService implements BlockChain {
 
   private static final int TRANSACTIONS_WORKLOG_SIZE = 5;
 
-  private final String nodeId;
 
   private final BlockRepository blockRepository;
 
   private final TransactionRepository transactionRepository;
 
+  private final NodeRegistry nodeRegistry;
+
   private final MiningService miner;
 
   public BlockChainService(final MiningService miner) throws Exception {
-    nodeId = UUID.randomUUID().toString();
     blockRepository = new BlockRepository();
     transactionRepository = new TransactionRepository();
+    nodeRegistry=new NodeRegistry();
     this.miner = miner;
   }
 
   @Override
   public NodeStatus getStatus() {
-    return new NodeStatus(nodeId, blockRepository.getBlockHeight());
+    return nodeRegistry.getStatus(blockRepository.getBlockHeight());
+  }
+
+  @Override
+  public NodeStatus addNode(Node node) {
+    nodeRegistry.addNode(node);
+    return getStatus();
   }
 
   @Override
