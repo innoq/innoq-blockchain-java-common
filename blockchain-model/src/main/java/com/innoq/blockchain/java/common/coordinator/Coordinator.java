@@ -43,6 +43,7 @@ public class Coordinator {
                 Block.Transaction transaction = (Block.Transaction) event.data;
                 if (transactionRepository.getTransaction(transaction.id) == null) {
                   transactionRepository.addToWorklog(new Transaction(transaction.id, transaction.payload, transaction.timestamp));
+                  eventRepository.storeEvent(new Event(event.event, event.data));
                 }
                 break;
               case "new_block":
@@ -58,6 +59,11 @@ public class Coordinator {
           System.err.println(boo.getMessage());
         }
       });
+      try {
+        Thread.sleep(5000);
+      } catch (InterruptedException e) {
+        break;
+      }
     }
   }
 }
