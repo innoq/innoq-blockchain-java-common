@@ -71,7 +71,7 @@ public class BlockChainService implements BlockChain {
   }
 
   @Override
-  public Transaction addTransaction(Payload payload) {
+  public Transaction addTransaction(TransactionData payload) {
     Transaction transaction = new Transaction(
         UUID.randomUUID().toString(),
         payload.payload,

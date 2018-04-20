@@ -1,12 +1,12 @@
 package com.innoq.blockchain.java.common;
 
-public class Payload {
+public class TransactionData {
 
   public String payload;
 
-  public Payload() {}
+  public TransactionData() {}
 
-  public Payload(String payload) {
+  public TransactionData(String payload) {
     this.payload = payload;
   }
 }

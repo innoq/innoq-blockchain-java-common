@@ -2,6 +2,8 @@ package com.innoq.blockchain.java.common;
 
 import com.innoq.blockchain.java.common.noderegisty.Node;
 
+import java.util.List;
+
 public interface BlockChain {
 
   NodeStatus getStatus();
@@ -12,7 +14,7 @@ public interface BlockChain {
 
   BlockList getBlockChain();
 
-  Transaction addTransaction(Payload payload);
+  Transaction addTransaction(TransactionData payload);
 
   Transaction getTransaction(String id);
 }

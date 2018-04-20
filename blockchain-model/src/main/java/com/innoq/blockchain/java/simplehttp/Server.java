@@ -2,7 +2,7 @@ package com.innoq.blockchain.java.simplehttp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innoq.blockchain.java.common.BlockChain;
-import com.innoq.blockchain.java.common.Payload;
+import com.innoq.blockchain.java.common.TransactionData;
 import com.innoq.blockchain.java.common.implementation.BlockChainService;
 import com.innoq.blockchain.java.common.implementation.MiningService;
 import com.sun.net.httpserver.HttpExchange;
@@ -68,7 +68,7 @@ public class Server {
       @Override
       public void handle(HttpExchange exc) throws IOException {
         if (exc.getRequestMethod().equalsIgnoreCase("POST")) {
-          Payload p = om.readValue(exc.getRequestBody(), Payload.class);
+          TransactionData p = om.readValue(exc.getRequestBody(), TransactionData.class);
           bc.addTransaction(p);
         }
       }

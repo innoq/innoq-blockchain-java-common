@@ -2,7 +2,7 @@ package com.innoq.blockchain.java.common.implementation;
 
 import com.innoq.blockchain.java.common.Block;
 import com.innoq.blockchain.java.common.NodeStatus;
-import com.innoq.blockchain.java.common.Payload;
+import com.innoq.blockchain.java.common.TransactionData;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,8 +44,8 @@ public class TestBlockService {
   @Test
   public void testTransaction() throws Exception {
     assertThat(service.getBlockChain().getBlocks()).hasSize(1);
-    service.addTransaction(new Payload("payload one"));
-    service.addTransaction(new Payload("payload two"));
+    service.addTransaction(new TransactionData("payload one"));
+    service.addTransaction(new TransactionData("payload two"));
 
     service.mineBlock();
     List<Block> blocks = service.getBlockChain().getBlocks();
