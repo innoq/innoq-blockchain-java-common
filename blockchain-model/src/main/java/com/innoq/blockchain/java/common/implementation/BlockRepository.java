@@ -1,6 +1,7 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.innoq.blockchain.java.common.Block;
+import com.innoq.blockchain.java.common.BlockList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,4 +36,6 @@ public class BlockRepository {
   public int getBlockHeight() {
     return blocks.size();
   }
+
+
 }

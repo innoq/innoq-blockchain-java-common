@@ -14,6 +14,8 @@ public interface BlockChain {
 
   BlockList getBlockChain();
 
+  void adaptBlockChain(BlockList blocks);
+
   Transaction addTransaction(TransactionData payload);
 
   Transaction getTransaction(String id);

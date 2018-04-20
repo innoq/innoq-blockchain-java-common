@@ -2,7 +2,9 @@ package com.innoq.blockchain.java.common.coordinator;
 
 import com.innoq.blockchain.java.common.Block;
 import com.innoq.blockchain.java.common.BlockChain;
+import com.innoq.blockchain.java.common.BlockList;
 import com.innoq.blockchain.java.common.Transaction;
+import com.innoq.blockchain.java.common.blocks.BlocksResolver;
 import com.innoq.blockchain.java.common.events.Event;
 import com.innoq.blockchain.java.common.events.EventPoller;
 import com.innoq.blockchain.java.common.events.EventRepository;
@@ -49,6 +51,9 @@ public class Coordinator {
               case "new_block":
                 Block block = (Block) event.data;
                 if (block.index > blockChain.getBlockChain().getBlockHeight()) {
+                  BlockList blocks = new BlocksResolver().resolve(node.host);
+                  blockChain.adaptBlockChain(blocks);
+                  eventRepository.storeEvent(new Event(event.event, event.data));
                 }
                 break;
               default:

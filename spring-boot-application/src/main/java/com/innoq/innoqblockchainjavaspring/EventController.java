@@ -17,7 +17,7 @@ public class EventController {
   }
 
   @GetMapping("/events")
- 	public Stream<Event> events() {
- 		return eventRepository.getEvents();
- 	}
+  public Stream<Event> events() {
+    return eventRepository.getEvents();
+  }
 }
