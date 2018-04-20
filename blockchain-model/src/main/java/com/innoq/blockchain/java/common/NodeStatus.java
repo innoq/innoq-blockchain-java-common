@@ -6,9 +6,12 @@ import java.util.Collection;
 
 public class NodeStatus {
 
-  public final String nodeId;
-  public final int currentBlockHeight;
-  public final Collection<Node> neighbours;
+  public String nodeId;
+  public int currentBlockHeight;
+  public Collection<Node> neighbours;
+
+  public NodeStatus() {
+  }
 
   public NodeStatus(String nodeId, int currentBlockHeight, Collection<Node> neighbours) {
     this.nodeId = nodeId;

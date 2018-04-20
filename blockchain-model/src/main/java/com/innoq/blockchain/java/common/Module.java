@@ -18,7 +18,7 @@ public class Module {
   public Module(int prefixLength) {
     eventRepository=new EventRepository();
     transactionRepository = new TransactionRepository();
-    nodeRegistry=new NodeRegistry();
+    nodeRegistry=new NodeRegistry(eventRepository);
     blockChain=new BlockChainService(transactionRepository, nodeRegistry, eventRepository, new MiningService(new byte[prefixLength]));
     coordinator=new Coordinator(nodeRegistry, eventRepository, transactionRepository, blockChain);
   }

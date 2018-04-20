@@ -5,6 +5,7 @@ import com.innoq.blockchain.java.common.Module;
 import com.innoq.blockchain.java.common.events.EventRepository;
 import com.innoq.blockchain.java.common.implementation.BlockChainService;
 import com.innoq.blockchain.java.common.implementation.MiningService;
+import com.innoq.blockchain.java.common.noderegisty.NodeRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -26,5 +27,10 @@ public class InnoqBlockchainJavaSpringApplication {
   @Bean
   EventRepository eventRepository() {
     return module.eventRepository;
+  }
+
+  @Bean
+  NodeRegistry nodeRegistry() {
+    return module.nodeRegistry;
   }
 }

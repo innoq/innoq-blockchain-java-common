@@ -1,20 +1,27 @@
 package com.innoq.blockchain.java.common.noderegisty;
 
 import com.innoq.blockchain.java.common.NodeStatus;
+import com.innoq.blockchain.java.common.events.Event;
+import com.innoq.blockchain.java.common.events.EventRepository;
 
 import java.util.*;
 
 public class NodeRegistry {
-  
+
+  EventRepository eventRepository;
+
+  public NodeRegistry(EventRepository eventRepository) {
+    myNodeId = UUID.randomUUID().toString();
+    this.eventRepository = eventRepository;
+  }
+
   private final String myNodeId;
   private final Set<Node> neighbours = new HashSet<>();
 
-  public NodeRegistry() {
-    myNodeId = UUID.randomUUID().toString();
-  }
-
   public void addNode(Node node) {
-    neighbours.add(node);
+    if (!node.noteId.equals(myNodeId) && neighbours.add(node)) {
+      eventRepository.storeEvent(new Event("new_node",node));
+    }
   }
 
   public Collection<Node> getNeighbours() {

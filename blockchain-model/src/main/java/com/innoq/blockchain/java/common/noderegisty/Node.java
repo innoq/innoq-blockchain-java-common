@@ -4,8 +4,11 @@ import java.util.Objects;
 
 public class Node {
 
-  public final String noteId;
-  public final String host;
+  public  String noteId;
+  public  String host;
+
+  public Node() {
+  }
 
   public Node(String noteId, String host) {
     this.noteId = noteId;

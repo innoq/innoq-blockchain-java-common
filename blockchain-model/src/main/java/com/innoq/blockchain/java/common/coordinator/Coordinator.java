@@ -37,9 +37,6 @@ public class Coordinator {
               case "new_node":
                 Node neighbour = (Node) event.data;
                 nodeRegistry.addNode(neighbour);
-                if (!Objects.equals(neighbour.noteId, nodeRegistry.getNodeId())) {
-                  eventRepository.storeEvent(new Event(event.event, event.data));
-                }
                 break;
               case "new_transaction":
                 Block.Transaction transaction = (Block.Transaction) event.data;
