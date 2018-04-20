@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Node {
 
-  public  String noteId;
+  public  String nodeId;
   public  String host;
 
   public Node() {
   }
 
-  public Node(String noteId, String host) {
-    this.noteId = noteId;
+  public Node(String nodeId, String host) {
+    this.nodeId = nodeId;
     this.host = host;
   }
 
@@ -24,12 +24,12 @@ public class Node {
       return false;
     }
     Node node = (Node) o;
-    return Objects.equals(noteId, node.noteId);
+    return Objects.equals(nodeId, node.nodeId);
   }
 
   @Override
   public int hashCode() {
 
-    return Objects.hash(noteId);
+    return Objects.hash(nodeId);
   }
 }

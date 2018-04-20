@@ -19,7 +19,7 @@ public class NodeRegistry {
   private final Set<Node> neighbours = new HashSet<>();
 
   public void addNode(Node node) {
-    if (!node.noteId.equals(myNodeId) && neighbours.add(node)) {
+    if (!node.nodeId.equals(myNodeId) && neighbours.add(node)) {
       eventRepository.storeEvent(new Event("new_node",node));
     }
   }
