@@ -1,12 +1,11 @@
 package com.innoq.innoqblockchainjavaspring;
 
-import com.innoq.blockchain.java.common.BlockChain;
-import com.innoq.blockchain.java.common.BlockList;
-import com.innoq.blockchain.java.common.MiningResult;
-import com.innoq.blockchain.java.common.NodeStatus;
+import com.innoq.blockchain.java.common.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 public class BlockchainRestController {
@@ -30,6 +29,16 @@ public class BlockchainRestController {
 	@GetMapping("/mine")
 	public MiningResult mine() throws Exception{
 		return blockChain.mineBlock();
+	}
+
+	@PostMapping("/transactions")
+	public Transaction transactions(@RequestBody TransactionData data){
+		return blockChain.addTransaction(data);
+	}
+
+	@GetMapping("/transaction/{id}")
+	public Transaction transaction(@PathVariable("id") String id){
+		return blockChain.getTransaction(id);
 	}
 
 }
