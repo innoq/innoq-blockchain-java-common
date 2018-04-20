@@ -10,6 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+
 @SpringBootApplication
 public class InnoqBlockchainJavaSpringApplication {
 
@@ -32,5 +34,10 @@ public class InnoqBlockchainJavaSpringApplication {
   @Bean
   NodeRegistry nodeRegistry() {
     return module.nodeRegistry;
+  }
+
+  @PostConstruct
+  public void startCoordinator() {
+    new Thread(() -> module.coordinator.eventLoop()).start();
   }
 }

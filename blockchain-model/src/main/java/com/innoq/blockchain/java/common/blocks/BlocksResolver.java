@@ -12,7 +12,7 @@ public class BlocksResolver {
 
   public BlockList resolve(String host) {
     try {
-      return new ObjectMapper().readValue(new URL(host).openStream(), BlockList.class);
+      return new ObjectMapper().readValue(new URL(host+"/blocks").openStream(), BlockList.class);
     } catch (Exception e) {
       throw new IllegalStateException(e);
     }

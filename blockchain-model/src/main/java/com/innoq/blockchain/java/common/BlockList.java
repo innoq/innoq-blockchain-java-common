@@ -7,10 +7,17 @@ import java.util.List;
 
 public class BlockList implements Iterable<Block> {
 
-  private final List<Block> blocks;
+  private List<Block> blocks;
+
+  public BlockList() {
+  }
 
   public BlockList(Collection<Block> blocks) {
     this.blocks = new ArrayList<>(blocks);
+  }
+
+  public void setBlocks(List<Block> blocks) {
+    this.blocks = blocks;
   }
 
   @Override
@@ -20,6 +27,10 @@ public class BlockList implements Iterable<Block> {
 
   public long getBlockHeight() {
     return blocks.size();
+  }
+
+  public void setBlockHeight(long ignore__needed_for_Jackson_currently) {
+
   }
 
   public List<Block> getBlocks() {
