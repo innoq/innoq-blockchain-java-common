@@ -11,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestMiningService {
 
-  private final byte[] prefix = new byte[3];
-  private final String prefixHex = "000000";
+  private final byte[] prefix = new byte[2];
+  private final String prefixHex = "0000";
 
   private MiningService miningService;
 
