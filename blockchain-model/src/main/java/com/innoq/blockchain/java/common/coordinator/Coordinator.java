@@ -58,6 +58,11 @@ public class Coordinator {
           System.err.println(boo.getMessage());
         }
       });
+      try {
+        Thread.sleep(5000);
+      } catch (InterruptedException e) {
+        break;
+      }
     }
   }
 }
