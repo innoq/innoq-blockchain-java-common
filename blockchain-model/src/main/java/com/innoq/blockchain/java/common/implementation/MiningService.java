@@ -29,7 +29,8 @@ public class MiningService {
     pool = Executors.newFixedThreadPool(noOfThreads);
   }
 
-  public MiningResult mine(int newBlockIndex, List<Block.Transaction> transactions, String previousBlockHash) throws Exception {
+
+  synchronized public MiningResult mine(int newBlockIndex, List<Block.Transaction> transactions, String previousBlockHash) throws Exception {
     Instant miningStart = now();
 
     byte[] prefix = String.format("{\"index\":%d,\"timestamp\":%d,\"proof\":", newBlockIndex, now().toEpochMilli()).getBytes(UTF_8);

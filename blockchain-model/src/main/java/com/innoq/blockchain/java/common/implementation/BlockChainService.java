@@ -47,7 +47,7 @@ public class BlockChainService implements BlockChain {
   }
 
   @Override
-  public MiningResult mineBlock() throws Exception {
+  synchronized public MiningResult mineBlock() throws Exception {
     List<Transaction> transactions = transactionRepository.getWorklog()
         .limit(TRANSACTIONS_WORKLOG_SIZE)
         .collect(toList());
@@ -70,13 +70,18 @@ public class BlockChainService implements BlockChain {
   }
 
   @Override
+  public void adaptBlockChain(BlockList blocks) {
+
+  }
+
+  @Override
   public Transaction addTransaction(TransactionData payload) {
     Transaction transaction = new Transaction(
         UUID.randomUUID().toString(),
         payload.payload,
         Instant.now().toEpochMilli());
     transactionRepository.addToWorklog(transaction);
-    eventRepository.storeEvent(new Event("new_block", transaction));
+    eventRepository.storeEvent(new Event("new_transaction", new Block.Transaction(transaction.id, transaction.timestamp, transaction.payload)));
     return transaction;
   }
 
