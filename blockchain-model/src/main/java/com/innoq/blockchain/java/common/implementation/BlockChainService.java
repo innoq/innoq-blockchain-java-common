@@ -47,7 +47,7 @@ public class BlockChainService implements BlockChain {
   }
 
   @Override
-  public MiningResult mineBlock() throws Exception {
+  synchronized public MiningResult mineBlock() throws Exception {
     List<Transaction> transactions = transactionRepository.getWorklog()
         .limit(TRANSACTIONS_WORKLOG_SIZE)
         .collect(toList());
