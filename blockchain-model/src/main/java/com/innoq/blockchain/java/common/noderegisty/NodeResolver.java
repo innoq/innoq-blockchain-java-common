@@ -8,10 +8,9 @@ import java.net.URL;
 
 public class NodeResolver {
 
-  public Node resolve(String host) {
+  public NodeStatus resolve(String host) {
     try {
-      NodeStatus status = new ObjectMapper().readValue(new URL(host).openStream(), NodeStatus.class);
-      return new Node(status.nodeId, host);
+      return new ObjectMapper().readValue(new URL(host).openStream(), NodeStatus.class);
     } catch (Exception e) {
       throw new IllegalStateException(e);
     }
