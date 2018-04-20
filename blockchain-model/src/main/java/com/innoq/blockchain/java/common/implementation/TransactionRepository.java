@@ -2,10 +2,7 @@ package com.innoq.blockchain.java.common.implementation;
 
 import com.innoq.blockchain.java.common.Transaction;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class TransactionRepository {
@@ -35,6 +32,11 @@ public class TransactionRepository {
 
   public Stream<Transaction> getWorklog() {
     return worklog.stream().map(transactions::get);
+  }
+
+  public void replaceTransactions(List<Transaction> transactions) {
+    transactions.clear();
+    transactions.addAll(transactions);
   }
 
   private void saveTransaction(Transaction tc) {

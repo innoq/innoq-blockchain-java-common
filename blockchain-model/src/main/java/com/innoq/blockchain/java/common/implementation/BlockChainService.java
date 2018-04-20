@@ -8,9 +8,13 @@ import com.innoq.blockchain.java.common.noderegisty.NodeRegistry;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 public class BlockChainService implements BlockChain {
 
@@ -70,8 +74,15 @@ public class BlockChainService implements BlockChain {
   }
 
   @Override
-  public void adaptBlockChain(BlockList blocks) {
+  public  void adaptBlockChain(BlockList blocks) {
+    blockRepository.setBlocks(blocks.getBlocks());
+    List<Transaction> transactions = blocks.getBlocks().stream()
+            .flatMap(block -> block.transactions.stream())
+            .map(t -> new Transaction(t.id, t.payload, t.timestamp).confirm())
+            .collect(toList());
 
+    transactions.forEach(transactionRepository::removeFromWorklog);
+    transactionRepository.replaceTransactions(Stream.concat(transactions.stream(), transactionRepository.getWorklog()).collect(toList()));
   }
 
   @Override

@@ -33,6 +33,11 @@ public class BlockRepository {
     blocks.add(block);
   }
 
+  public void setBlocks(List<Block> newBlocks) {
+    this.blocks.clear();
+    this.blocks.addAll(newBlocks);
+  }
+
   public int getBlockHeight() {
     return blocks.size();
   }
