@@ -1,6 +1,8 @@
 package com.innoq.innoqblockchainjavaspring;
 
 import com.innoq.blockchain.java.common.BlockChain;
+import com.innoq.blockchain.java.common.Module;
+import com.innoq.blockchain.java.common.events.EventRepository;
 import com.innoq.blockchain.java.common.implementation.BlockChainService;
 import com.innoq.blockchain.java.common.implementation.MiningService;
 import org.springframework.boot.SpringApplication;
@@ -10,12 +12,19 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class InnoqBlockchainJavaSpringApplication {
 
+  private final Module module = new Module(3);
+
   public static void main(String[] args) {
     SpringApplication.run(InnoqBlockchainJavaSpringApplication.class, args);
   }
 
   @Bean
   public BlockChain blockChainService() throws Exception {
-    return new BlockChainService(new MiningService(new byte[2]));
+    return module.blockChain;
+  }
+
+  @Bean
+  EventRepository eventRepository() {
+    return module.eventRepository;
   }
 }

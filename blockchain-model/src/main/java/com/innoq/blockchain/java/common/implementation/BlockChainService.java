@@ -28,12 +28,20 @@ public class BlockChainService implements BlockChain {
 
   private final MiningService miner;
 
-  public BlockChainService(final MiningService miner) throws Exception {
+  public BlockChainService(final MiningService miner)  {
     blockRepository = new BlockRepository();
     transactionRepository = new TransactionRepository();
     nodeRegistry = new NodeRegistry();
     eventRepository = new EventRepository();
     this.miner = miner;
+  }
+
+  public BlockChainService(TransactionRepository transactionRepository, NodeRegistry nodeRegistry, EventRepository eventRepository, MiningService miner) {
+    this.transactionRepository = transactionRepository;
+    this.nodeRegistry = nodeRegistry;
+    this.eventRepository = eventRepository;
+    this.miner = miner;
+    blockRepository = new BlockRepository();
   }
 
   @Override

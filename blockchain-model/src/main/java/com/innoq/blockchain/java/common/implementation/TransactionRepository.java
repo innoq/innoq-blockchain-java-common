@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-class TransactionRepository {
+public class TransactionRepository {
 
   private final Map<String, Transaction> transactions;
 
