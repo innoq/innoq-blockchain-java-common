@@ -1,7 +1,6 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innoq.blockchain.java.common.Block;
 
 import java.io.IOException;
 
@@ -9,7 +8,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 class Serializer {
 
-  static public byte[] asBytes(Block block) {
+  static public byte[] asBytes(Object block) {
     try {
       return new ObjectMapper().writeValueAsBytes(block);
     } catch (IOException e) {
@@ -17,7 +16,7 @@ class Serializer {
     }
   }
 
-  static public String asString(Block block) {
+  static public String asString(Object block) {
     return new String(asBytes(block), US_ASCII);
   }
 }

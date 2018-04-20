@@ -1,105 +1,70 @@
 package com.innoq.blockchain.java.common.implementation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innoq.blockchain.java.common.Transaction;
+import com.innoq.blockchain.java.common.Block;
+import com.innoq.blockchain.java.common.MiningResult;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.time.Instant.now;
 
 public class MiningService {
 
-  private final String hashPrefix;
+  private final byte[] hashPrefix;
 
   private final MessageDigest digest;
 
-  private final ObjectMapper objectMapper;
-
-  public MiningService(String hashPrefix) {
+  public MiningService(byte[] hashPrefix) {
     this.hashPrefix = hashPrefix;
     try {
       digest = MessageDigest.getInstance("SHA-256");
     } catch (NoSuchAlgorithmException e) {
       throw new IllegalStateException(e);
     }
-    objectMapper = new ObjectMapper();
   }
 
-  public MiningResult mine(int newBlockIndex, List<Transaction> transactions, String previousBlockHash) throws Exception {
-    Instant miningStart = Instant.now();
+  public MiningResult mine(int newBlockIndex, List<Block.Transaction> transactions, String previousBlockHash) throws Exception {
+    Instant miningStart = now();
 
-    int proofCounter = -1;
-    String hash = null;
-    byte[] block = null;
+    byte[] hash = null;
+    byte[] prefix = String.format("{\"index\":%d,\"timestamp\":%d,\"proof\":", newBlockIndex, now().toEpochMilli()).getBytes(UTF_8);
+    byte[] suffix = String.format(",\"transactions\":%s,\"previousBlockHash\":\"%s\"}", Serializer.asString(transactions), previousBlockHash).getBytes(UTF_8);
+    long proofCounter = -1;
     do {
       proofCounter++;
-      block = createBlock(newBlockIndex, miningStart, proofCounter, transactions, previousBlockHash);
-      hash = hash(block);
-    } while (!hash.startsWith(hashPrefix));
+      digest.reset();
+      digest.update(prefix);
+      digest.update(Long.toString(proofCounter).getBytes(UTF_8));
+      digest.update(suffix);
+      hash = digest.digest();
+    } while (!isFittingHash(hash));
 
-    Duration duration = Duration.between(miningStart, Instant.now());
+    Duration duration = Duration.between(miningStart, now());
     double hashesPerSecond = (proofCounter + 1.0) / (duration.getSeconds() + 1);
-    return new MiningResult(duration, hashesPerSecond, block);
+    return new MiningResult(duration, hashesPerSecond, Deserializer.asBlock(concatBytes(prefix, Long.toString(proofCounter).getBytes(), suffix)));
   }
 
-  private byte[] createBlock(int index, Instant timestamp, int proof, List<Transaction> transactions, String previousBlockHash) throws JsonProcessingException {
-    Block block = new Block();
-    block.index = index;
-    block.timestamp = timestamp.toEpochMilli();
-    block.proof = proof;
-    block.transactions = transactions.stream().map(tc -> {
-      Block.Transaction transaction = new Block.Transaction();
-      transaction.id = tc.id;
-      transaction.payload = tc.payload;
-      transaction.timestamp = tc.timestamp;
-      return transaction;
-    })
-        .collect(toList());
-    block.previousBlockHash = previousBlockHash;
-
-    return objectMapper.writeValueAsBytes(block);
-  }
-
-  public String hash(byte[] block) {
-    digest.reset();
-    return String.format("%064x", new BigInteger(1, digest.digest(block)));
-  }
-
-  /* serialization classes */
-  static class Block {
-
-    public int index;
-    public long timestamp;
-    public int proof;
-    public List<Transaction> transactions;
-    public String previousBlockHash;
-
-    static class Transaction {
-
-      public String id;
-      public long timestamp;
-      public String payload;
+  private byte[] concatBytes(byte[]... bytes) {
+    byte[] result = new byte[Stream.of(bytes).mapToInt(a -> a.length).sum()];
+    int cursor = 0;
+    for (byte[] someBytes : bytes) {
+      System.arraycopy(someBytes, 0, result, cursor, someBytes.length);
+      cursor += someBytes.length;
     }
+    return result;
   }
 
-  public static class MiningResult {
-
-    public final Duration duration;
-
-    public final double hashesPerSecond;
-
-    public final byte[] block;
-
-    public MiningResult(final Duration duration, final double hashesPerSecond, final byte[] block) {
-      this.duration = duration;
-      this.hashesPerSecond = hashesPerSecond;
-      this.block = block;
+  private boolean isFittingHash(byte[] hash) {
+    for (int i = 0; i < hashPrefix.length; i++) {
+      if (hash[i] != hashPrefix[i]) {
+        return false;
+      }
     }
+    return true;
   }
 }

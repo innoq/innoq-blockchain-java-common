@@ -1,7 +1,7 @@
 package com.innoq.blockchain.java.common.implementation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innoq.blockchain.java.common.implementation.MiningService.MiningResult;
+import com.innoq.blockchain.java.common.Block;
+import com.innoq.blockchain.java.common.MiningResult;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestMiningService {
 
-  private final String prefix = "000";
+  private final byte[] prefix = new byte[2];
+  private final String prefixHex = "0000";
 
   private MiningService miningService;
 
@@ -24,18 +25,18 @@ public class TestMiningService {
   public void testMinedPrefixHash() throws Exception {
     MiningResult result = miningService.mine(1, Collections.emptyList(), "");
     assertThat(result.block).isNotNull();
-    assertThat(miningService.hash(result.block)).startsWith(prefix);
+    assertThat(Hasher.createHash(result.block)).startsWith(prefixHex);
   }
 
   @Test
   public void testBlock() throws Exception {
     MiningResult result = miningService.mine(1, Collections.emptyList(), "previous block hash");
-    MiningService.Block block = new ObjectMapper().readValue(result.block, MiningService.Block.class);
+    Block block = result.block;
     assertThat(block.index).isEqualTo(1);
     assertThat(block.previousBlockHash).isEqualTo("previous block hash");
 
     result = miningService.mine(2, Collections.emptyList(), "next previous block hash");
-    block = new ObjectMapper().readValue(result.block, MiningService.Block.class);
+    block = result.block;
     assertThat(block.index).isEqualTo(2);
     assertThat(block.previousBlockHash).isEqualTo("next previous block hash");
   }

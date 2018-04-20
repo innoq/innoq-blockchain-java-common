@@ -5,7 +5,8 @@ import com.innoq.blockchain.java.common.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class BlockChainService implements BlockChain {
 
@@ -35,21 +36,22 @@ public class BlockChainService implements BlockChain {
   public MiningResult mineBlock() throws Exception {
     List<Transaction> transactions = transactionRepository.getWorklog()
         .limit(TRANSACTIONS_WORKLOG_SIZE)
-        .collect(Collectors.toList());
-    MiningService.MiningResult result = miner.mine(
+        .collect(toList());
+
+    MiningResult result = miner.mine(
         blockRepository.getBlockHeight() + 1,
-        transactions,
+        transactions.stream().map(t -> new Block.Transaction(t.id, t.timestamp, t.payload)).collect(toList()),
         Hasher.createHash(blockRepository.getLastBlock()));
-    Block block = Deserializer.asBlock(result.block);
-    blockRepository.persist(block);
+
+    blockRepository.persist(result.block);
     transactions.stream().map(Transaction::confirm).forEach(transactionRepository::removeFromWorklog);
 
-    return new MiningResult(result.duration, result.hashesPerSecond, block);
+    return result;
   }
 
   @Override
   public BlockList getBlockChain() {
-    return new BlockList(blockRepository.getBlocks().collect(Collectors.toList()));
+    return new BlockList(blockRepository.getBlocks().collect(toList()));
   }
 
   @Override

@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class InnoqBlockchainJavaSpringApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(InnoqBlockchainJavaSpringApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(InnoqBlockchainJavaSpringApplication.class, args);
+  }
 
-	@Bean
-	public BlockChain blockChainService() throws Exception {
-		return new BlockChainService(new MiningService("0000"));
-	}
+  @Bean
+  public BlockChain blockChainService() throws Exception {
+    return new BlockChainService(new MiningService(new byte[2]));
+  }
 }

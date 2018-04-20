@@ -16,7 +16,7 @@ public class TestBlockService {
 
   @Before
   public void setUp() throws Exception {
-    service = new BlockChainService(new MiningService("000"));
+    service = new BlockChainService(new MiningService(new byte[2]));
   }
 
   @Test
