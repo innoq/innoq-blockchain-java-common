@@ -1,12 +1,12 @@
 package com.innoq.blockchain.java.common;
 
-import com.innoq.blockchain.java.common.implementation.noderegisty.Node;
+import com.innoq.blockchain.java.common.noderegisty.Node;
 
 public interface BlockChain {
 
   NodeStatus getStatus();
 
-  NodeStatus addNode(Node node);
+  Node addNode(Node node);
 
   MiningResult mineBlock() throws Exception;
 

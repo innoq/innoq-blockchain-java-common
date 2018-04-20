@@ -1,6 +1,4 @@
-package com.innoq.blockchain.java.common.implementation.events;
-
-import com.innoq.blockchain.java.common.Event;
+package com.innoq.blockchain.java.common.events;
 
 import java.util.ArrayList;
 import java.util.List;

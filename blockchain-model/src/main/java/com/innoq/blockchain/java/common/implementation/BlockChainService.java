@@ -1,9 +1,10 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.innoq.blockchain.java.common.*;
-import com.innoq.blockchain.java.common.implementation.events.EventRepository;
-import com.innoq.blockchain.java.common.implementation.noderegisty.Node;
-import com.innoq.blockchain.java.common.implementation.noderegisty.NodeRegistry;
+import com.innoq.blockchain.java.common.events.Event;
+import com.innoq.blockchain.java.common.events.EventRepository;
+import com.innoq.blockchain.java.common.noderegisty.Node;
+import com.innoq.blockchain.java.common.noderegisty.NodeRegistry;
 
 import java.time.Instant;
 import java.util.List;
@@ -41,9 +42,9 @@ public class BlockChainService implements BlockChain {
   }
 
   @Override
-  public NodeStatus addNode(Node node) {
+  public Node addNode(Node node) {
     nodeRegistry.addNode(node);
-    return getStatus();
+    return node;
   }
 
   @Override

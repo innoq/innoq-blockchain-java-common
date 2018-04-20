@@ -1,4 +1,4 @@
-package com.innoq.blockchain.java.common;
+package com.innoq.blockchain.java.common.events;
 
 public class Event {
 
