@@ -28,7 +28,8 @@ public class MiningService {
     }
   }
 
-  public MiningResult mine(int newBlockIndex, List<Block.Transaction> transactions, String previousBlockHash) throws Exception {
+
+  synchronized public MiningResult mine(int newBlockIndex, List<Block.Transaction> transactions, String previousBlockHash) throws Exception {
     Instant miningStart = now();
 
     byte[] hash = null;
