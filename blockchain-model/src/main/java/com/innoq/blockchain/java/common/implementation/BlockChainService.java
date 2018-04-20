@@ -76,7 +76,7 @@ public class BlockChainService implements BlockChain {
         payload.payload,
         Instant.now().toEpochMilli());
     transactionRepository.addToWorklog(transaction);
-    eventRepository.storeEvent(new Event("new_transaction", transaction));
+    eventRepository.storeEvent(new Event("new_transaction", new Block.Transaction(transaction.id, transaction.timestamp, transaction.payload)));
     return transaction;
   }
 
