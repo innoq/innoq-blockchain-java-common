@@ -10,7 +10,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-import static java.lang.System.currentTimeMillis;
 import static java.util.stream.Collectors.toList;
 
 public class BlockChainService implements BlockChain {
@@ -60,7 +59,7 @@ public class BlockChainService implements BlockChain {
 
     blockRepository.persist(result.block);
     transactions.stream().map(Transaction::confirm).forEach(transactionRepository::removeFromWorklog);
-    eventRepository.storeEvent(new Event(currentTimeMillis(), "new_block", result.block));
+    eventRepository.storeEvent(new Event("new_block", result.block));
 
     return result;
   }
@@ -77,7 +76,7 @@ public class BlockChainService implements BlockChain {
         payload.payload,
         Instant.now().toEpochMilli());
     transactionRepository.addToWorklog(transaction);
-    eventRepository.storeEvent(new Event(currentTimeMillis(), "new_block", transaction));
+    eventRepository.storeEvent(new Event("new_block", transaction));
     return transaction;
   }
 

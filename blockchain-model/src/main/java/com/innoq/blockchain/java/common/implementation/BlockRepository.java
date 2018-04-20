@@ -11,7 +11,7 @@ import java.util.stream.Stream;
  *
  * @author thorstenk
  */
-class BlockRepository {
+public class BlockRepository {
 
   private final List<Block> blocks;
 

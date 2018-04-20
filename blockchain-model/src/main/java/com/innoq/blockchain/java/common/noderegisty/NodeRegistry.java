@@ -25,4 +25,7 @@ public class NodeRegistry {
     return new NodeStatus(myNodeId, blockHeight, neighbours);
   }
 
+  public String getNodeId() {
+    return myNodeId;
+  }
 }
