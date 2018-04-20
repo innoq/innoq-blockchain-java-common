@@ -15,4 +15,13 @@ public class MiningResult {
     this.hashesPerSecond = hashesPerSecond;
     this.block = block;
   }
+
+  @Override
+  public String toString() {
+    return "MiningResult{" +
+            "duration=" + duration +
+            ", hashesPerSecond=" + hashesPerSecond +
+            ", block=" + block +
+            '}';
+  }
 }
