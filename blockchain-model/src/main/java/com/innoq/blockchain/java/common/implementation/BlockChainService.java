@@ -1,6 +1,7 @@
 package com.innoq.blockchain.java.common.implementation;
 
 import com.innoq.blockchain.java.common.*;
+import com.innoq.blockchain.java.common.implementation.events.EventRepository;
 import com.innoq.blockchain.java.common.noderegisty.Node;
 import com.innoq.blockchain.java.common.noderegisty.NodeRegistry;
 
@@ -8,6 +9,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+import static java.lang.System.currentTimeMillis;
 import static java.util.stream.Collectors.toList;
 
 public class BlockChainService implements BlockChain {
@@ -21,12 +23,15 @@ public class BlockChainService implements BlockChain {
 
   private final NodeRegistry nodeRegistry;
 
+  private final EventRepository eventRepository;
+
   private final MiningService miner;
 
   public BlockChainService(final MiningService miner) throws Exception {
     blockRepository = new BlockRepository();
     transactionRepository = new TransactionRepository();
-    nodeRegistry=new NodeRegistry();
+    nodeRegistry = new NodeRegistry();
+    eventRepository = new EventRepository();
     this.miner = miner;
   }
 
@@ -54,6 +59,7 @@ public class BlockChainService implements BlockChain {
 
     blockRepository.persist(result.block);
     transactions.stream().map(Transaction::confirm).forEach(transactionRepository::removeFromWorklog);
+    eventRepository.storeEvent(new Event(currentTimeMillis(), "new_block", result.block));
 
     return result;
   }
@@ -70,11 +76,16 @@ public class BlockChainService implements BlockChain {
         payload.payload,
         Instant.now().toEpochMilli());
     transactionRepository.addToWorklog(transaction);
+    eventRepository.storeEvent(new Event(currentTimeMillis(), "new_block", transaction));
     return transaction;
   }
 
   @Override
   public Transaction getTransaction(String id) {
     return transactionRepository.getTransaction(id);
+  }
+
+  List<Event> getEvents() {
+    return eventRepository.getEvents().collect(toList());
   }
 }
